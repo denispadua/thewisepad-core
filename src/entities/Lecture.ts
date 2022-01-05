@@ -11,4 +11,6 @@ export class Lecture{
         return this.description === other.description &&
         this.videoUrl === other.videoUrl
     }
+
+    
 }

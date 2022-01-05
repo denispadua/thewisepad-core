@@ -9,7 +9,7 @@ export class Module{
     }
 
     add (lecture: Lecture): void{
-        if(!this.includes(lecture)){
+        if(!this.lectures.find(lec => lec.description === lecture.description) !== undefined) {
             this.lectures.push(lecture)
         }
 
