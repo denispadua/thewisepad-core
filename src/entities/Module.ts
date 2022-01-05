@@ -9,10 +9,19 @@ export class Module{
     }
 
     add (lecture: Lecture): void{
-        this.lectures.push(lecture)
+        if(!this.includes(lecture)){
+            this.lectures.push(lecture)
+        }
+
     }
 
     includes(lecture: Lecture): boolean{
-        return this.lectures.includes(lecture)
+        return this.lectures.find(lec => lec.equals(lecture)) !== undefined
     }
+
+    get numberOfLectures(): number{
+        return this.lectures.length
+    }
+
+
 }
