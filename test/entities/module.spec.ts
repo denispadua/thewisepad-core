@@ -88,11 +88,31 @@ describe('Module', ()=>{
         module.add(Pushing)
 
         module.move(Branching, 10)
-        // expect()).not.toThrow ()
 
         expect(module.position(Branching)).toBe(1)
         expect(module.position(Commiting)).toBe(2)
         expect(module.position(Pushing)).toBe(3)
 
     })
+
+    
+    it('should handle invalid lecture position (negative) while rearranging',()=>{
+        const module = new Module('Fundamentals')
+        const Branching: Lecture = new Lecture('Branching', 'http://youtube.com/Branching')
+        const Commiting: Lecture = new Lecture('Commiting', 'http://youtube.com/Commiting')
+        const Pushing: Lecture = new Lecture('Pushing', 'http://youtube.com/Pushing')
+
+        module.add(Branching)
+        module.add(Commiting)
+        module.add(Pushing)
+
+        module.move(Branching, 0)
+
+        expect(module.position(Branching)).toBe(1)
+        expect(module.position(Commiting)).toBe(2)
+        expect(module.position(Pushing)).toBe(3)
+
+    })
+
+
 })
