@@ -23,5 +23,12 @@ export class Module{
         return this.lectures.length
     }
 
-
+    move(lecture: Lecture, to: number): void{
+        const from = this.position(lecture)
+        this.lectures.splice(to-1, 0, this.lectures.splice(from - 1, 1)[0])
+    }
+    position(lecture: Lecture): number{
+        const lectureInModule = this.lectures.find(lec => lec.equals(lecture))
+        return this.lectures.indexOf(lectureInModule) + 1
+    }
 }
