@@ -51,7 +51,7 @@ describe('Module', ()=>{
         expect(course.includes(module)).toBeTruthy()
     })
 
-    interface('should be able to rearrange lectures order', ()=>{
+    it('should be able to rearrange lectures order', ()=>{
         const module = new Module('Fundamentals')
         const Branching: Lecture = new Lecture('Branching', 'http://youtube.com/Branching')
         const Commiting: Lecture = new Lecture('Commiting', 'http://youtube.com/Commiting')
@@ -66,7 +66,14 @@ describe('Module', ()=>{
         expect(module.position(Commiting)).toBe(1)
         expect(module.position(Pushing)).toBe(2)
         expect(module.position(Branching)).toBe(2)
-
     
+    })
+
+
+    it('should handle unexisting lecture',()=>{
+        const module = new Module('Fundamentals')
+        const Branching: Lecture = new Lecture('Branching', 'http://youtube.com/Branching')
+
+        expect(module.position(Branching)).toBeUndefined()
     })
 })

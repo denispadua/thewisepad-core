@@ -29,6 +29,7 @@ export class Module{
     }
     position(lecture: Lecture): number{
         const lectureInModule = this.lectures.find(lec => lec.equals(lecture))
+        if(lectureInModule === undefined) return undefined
         return this.lectures.indexOf(lectureInModule) + 1
     }
 }
