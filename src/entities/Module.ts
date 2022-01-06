@@ -24,6 +24,9 @@ export class Module{
     }
 
     move(lecture: Lecture, to: number): void{
+        if(to > this.lectures.length){
+            return
+        }
         const from = this.position(lecture)
         this.lectures.splice(to-1, 0, this.lectures.splice(from - 1, 1)[0])
     }
