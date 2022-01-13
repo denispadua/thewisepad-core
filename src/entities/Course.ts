@@ -1,21 +1,37 @@
-import { Lecture } from "./lecture"
-import { Module } from "./Module"
+import { Module } from './module'
+import { moveInArray } from './utils'
 
-export class Course{
-    public reference: string
-    public description: string
-    private modules: Array<Module> = []
-    
-    constructor(reference: string, description: string){
-        this.reference = reference
-        this.description = description
-    }
-    
-    add(module: Module){
-        this.modules.push(module)
-    }
+export class Course {
+  private modules: Array<Module> = []
+  public reference: string
+  public description: string
 
-    includes(module: Module): boolean{
-        return this.modules.includes(module)
+  constructor (reference: string, description: string) {
+    this.reference = reference
+    this.description = description
+  }
+
+  add (module: Module): void {
+    this.modules.push(module)
+  }
+
+  includes (module: Module): boolean {
+    return this.modules.includes(module)
+  }
+
+  position (module: Module): number {
+    const moduleInCourse = this.modules.find(mod => mod.name === module.name)
+    if (moduleInCourse === undefined) {
+      return undefined
     }
+    return this.modules.indexOf(moduleInCourse) + 1
+  }
+
+  move (module: Module, to: number): void {
+    if (to > this.modules.length || to <= 0) {
+      return
+    }
+    const from = this.position(module)
+    moveInArray(this.modules, from - 1, to - 1)
+  }
 }
