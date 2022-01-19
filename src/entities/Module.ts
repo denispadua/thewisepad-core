@@ -23,6 +23,8 @@ export class Module {
   }
 
   remove (lecture: Lecture): void {
+    if (!this.includes(lecture)) return
+
     const positionInArray = this.position(lecture) - 1
     this.lectures.splice(positionInArray, 1)
   }
