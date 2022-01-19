@@ -1,3 +1,4 @@
+import { Lecture } from '.'
 import { Module } from './module'
 import { moveInArray } from './utils'
 
@@ -43,5 +44,11 @@ export class Course {
     }
     const from = this.position(module)
     moveInArray(this.modules, from - 1, to - 1)
+  }
+
+  moveLecture (lecture: Lecture, fromModule: Module, toModule: Module, position: number): void {
+    fromModule.remove(lecture)
+    toModule.add(lecture)
+    toModule.move(lecture, position)
   }
 }
