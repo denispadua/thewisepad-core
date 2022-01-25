@@ -1,6 +1,6 @@
 import { Material } from './Material'
 
-export class Pdf implements Material {
+export class Link implements Material {
     url: string;
     readonly title: string
 
