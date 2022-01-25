@@ -19,6 +19,11 @@ export class Lecture {
     this.materials.push(material)
   }
 
+  remove (material: Material): void {
+    const position = this.materials.indexOf(material)
+    if (position !== -1) this.materials.splice(position, 1)
+  }
+
   includes (material: Material): boolean {
     return this.materials.includes(material)
   }
