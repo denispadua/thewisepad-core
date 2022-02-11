@@ -1,4 +1,6 @@
+import { Either } from '@/shared/either'
 import { Container } from './container'
+import { ExistingPartError } from './errors/existing-part-error'
 import { Material } from './material'
 import { Part } from './part'
 
@@ -12,8 +14,8 @@ export class Lecture implements Part {
     this.videoUrl = videoUrl
   }
 
-  add (material: Material): void {
-    this.materials.add(material)
+  add (material: Material): Either<ExistingPartError, void> {
+    return this.materials.add(material)
   }
 
   includes (material: Material): boolean {

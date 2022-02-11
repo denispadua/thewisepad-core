@@ -1,3 +1,4 @@
+import { ExistingModuleError } from '@/entities/errors/existing-module-error'
 import { Lecture } from '../../src/entities'
 import { Link } from '../../src/entities/link'
 import { Material } from '../../src/entities/material'
@@ -24,5 +25,14 @@ describe('Lecture', () => {
     const branchingLink: Material = new Link('Branching', 'http://page.com/branching.html')
     lecture.add(branchingLink)
     expect(lecture.includes(branchingLink)).toBeTruthy()
+  })
+
+  it('should not be able to add existing material to lectures', () => {
+    const lecture: Lecture = new Lecture('Branching', 'https://youtube.com/1234')
+    const branchingPdf: Material = new Pdf('Branching', 'https://storage/branching.pdf')
+    lecture.add(branchingPdf)
+    const error = lecture.add(branchingPdf).value as ExistingModuleError
+    expect(error.message).toEqual('Module alredy exist in course')
+    expect(lecture.includes(branchingPdf)).toBeTruthy()
   })
 })
