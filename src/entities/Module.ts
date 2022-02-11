@@ -1,4 +1,6 @@
+import { Either } from '@/shared/either'
 import { Container } from './container'
+import { ExistingPartError } from './errors/existing-part-error'
 import { Lecture } from './lecture'
 import { Part } from './part'
 
@@ -13,8 +15,8 @@ export class Module implements Part {
     return this.lectures.numberOfParts
   }
 
-  add (lecture: Lecture): void {
-    this.lectures.add(lecture)
+  add (lecture: Lecture): Either<ExistingPartError, void> {
+    return this.lectures.add(lecture)
   }
 
   includes (lecture: Lecture): boolean {

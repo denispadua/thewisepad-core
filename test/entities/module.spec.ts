@@ -1,4 +1,5 @@
 import { Lecture, Module } from '../../src/entities'
+import { ExistingModuleError } from '../../src/entitie/errors/existing-module-error';
 
 describe('Module', () => {
   it('should be able to add lectures to modules', () => {
@@ -12,10 +13,13 @@ describe('Module', () => {
     const module = new Module('Fundamentals')
     const lecture: Lecture = new Lecture('Branching', 'https://youtube.com/1234')
     const sameLecture: Lecture = new Lecture('Branching', 'https://youtube.com/1234')
+    
     module.add(lecture)
-    module.add(sameLecture)
+    const error = module.add(sameLecture).value as ExistingModuleError
+
     expect(module.includes(lecture)).toBeTruthy()
     expect(module.numberOfLectures).toBe(1)
+    expect(error.message).toEqual('Module alredy exist in course')
   })
 
   it('should not be able to have two lectures with same name in a module', () => {

@@ -4,6 +4,7 @@ import { Module } from './module'
 import { ExistingPartError } from './errors/existing-part-error'
 import { ExistingModuleError } from './errors/existing-module-error'
 import { Part } from './part'
+import { Either } from '@/shared/either'
 
 export class Course {
   private readonly modules: Container<Module> = new Container<Module>()
