@@ -25,7 +25,7 @@ describe('Module', () => {
     module.add(lecture)
     module.add(otherLecture)
     expect(module.includes(lecture)).toBeTruthy()
-    expect(module.includes(otherLecture)).toBeFalsy()
+    expect(module.numberOfLectures).toEqual(1)
   })
 
   it('should be able to rearrange the order of lectures', () => {
@@ -85,7 +85,8 @@ describe('Module', () => {
     expect(module.position(commiting)).toBe(2)
     expect(module.position(pushing)).toBe(3)
   })
-  it('should be able to remove a lecture ', () => {
+
+  it('should be able to remove a lecture', () => {
     const module = new Module('Fundamentals')
     const branching: Lecture = new Lecture('Branching', 'https://youtube.com/branching')
     module.add(branching)
@@ -93,14 +94,12 @@ describe('Module', () => {
     expect(module.numberOfLectures).toEqual(0)
   })
 
-  it('should be able to handle trying to remove an unexisting lecture ', () => {
+  it('should be able to handle trying to remove an unexisting lecture', () => {
     const module = new Module('Fundamentals')
     const branching: Lecture = new Lecture('Branching', 'https://youtube.com/branching')
     const commiting: Lecture = new Lecture('Commiting', 'https://youtube.com/commiting')
-
     module.add(commiting)
     module.remove(branching)
-
     expect(module.numberOfLectures).toEqual(1)
   })
 })
