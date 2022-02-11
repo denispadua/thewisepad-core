@@ -1,4 +1,5 @@
-import { Course, Module, Lecture } from '../../src/entities'
+import { Course, Module, Lecture } from '../../src/entities';
+import { ExistingModuleError } from '../../src/entitie/errors/existing-module-error';
 
 describe('Course', () => {
   it('should be able to add modules to courses', () => {
@@ -20,10 +21,14 @@ describe('Course', () => {
     const module2 = new Module('Fundamentals')
 
     module1.add(lecture)
-    course.add(module1)
-    course.add(module2)
+    const ok = course.add(module1).value as void
+    const error = course.add(module2).value as ExistingModuleError
+
+
     expect(course.includes(module1)).toBeTruthy()
     expect(course.numberOfModules).toEqual(1)
+    expect(error.message).toEqual('Module alredy exist in course')
+    expect(ok).toEqual(undefined)
   })
 
   it('should be able to rearrange the order of modules', () => {
