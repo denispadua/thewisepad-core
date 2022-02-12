@@ -1,6 +1,7 @@
 import { Either } from '@/shared/either'
 import { Container } from './container'
 import { ExistingPartError } from './errors/existing-part-error'
+import { UnexistingElementError } from './errors/unexisting-element-error'
 import { Material } from './material'
 import { Part } from './part'
 
@@ -22,8 +23,8 @@ export class Lecture implements Part {
     return this.materials.includes(material)
   }
 
-  remove (material: Material): void {
-    this.materials.remove(material)
+  remove (material: Material): Either<UnexistingElementError,void> {
+    return this.materials.remove(material)
   }
 
   equals (other: Lecture): boolean {
