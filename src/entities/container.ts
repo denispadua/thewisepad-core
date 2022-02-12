@@ -26,11 +26,12 @@ export class Container<T extends Part> {
     return this.parts.find(p => p.equals(part) === true) !== undefined
   }
 
-  move (part: T, to: number): void {
+  move (part: T, to: number): Either<UnexistingElementError, void> {
     if (to > this.parts.length || to < 1) return
+    if (!this.includes(part)) return left(new UnexistingElementError())
     const from = this.position(part).value as number
-    moveInArray(this.parts, from - 1, to - 1)
-  }
+    return right(moveInArray(this.parts, from - 1, to - 1))
+  } 
 
   position (part: T): Either<UnexistingElementError,number> {
     const partInContainer = this.parts.find(p => p.equals(part))
