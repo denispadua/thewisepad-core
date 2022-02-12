@@ -1,5 +1,7 @@
 import { Either, left, right } from '@/shared/either'
 import { ExistingPartError } from './errors/existing-part-error'
+import {UnexistingElementError} from './errors/unexisting-element-error'
+
 import { Part } from './part'
 
 
@@ -39,10 +41,14 @@ export class Container<T extends Part> {
     return this.parts.indexOf(partInContainer) + 1
   }
 
-  remove (part: T): void {
-    if (!this.includes(part)) return
+  remove (part: T): Either<UnexistingElementError, void> {
+    if (!this.includes(part)) return left(new UnexistingElementError())
     const positionInArray = this.position(part) - 1
-    this.parts.splice(positionInArray, 1)
+    return right(this.splice(positionInArray, 1))
+  }
+
+  private splice(position: number, numberOfElements: number): void{
+    this.parts.splice(position, numberOfElements)
   }
 }
 
