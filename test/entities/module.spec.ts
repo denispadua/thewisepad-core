@@ -1,6 +1,6 @@
 import { Lecture, Module } from '../../src/entities'
-import { ExistingModuleError } from '../../src/entitie/errors/existing-module-error';
-import { UnexistingElementError } from '@/entities/errors/unexisting-element-error';
+import { ExistingModuleError } from '../../src/entities/errors/existing-module-error';
+import { UnexistingElementError } from '../../src/entities/errors/unexisting-element-error';
 
 describe('Module', () => {
   it('should be able to add lectures to modules', () => {

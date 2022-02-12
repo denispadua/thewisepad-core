@@ -1,6 +1,8 @@
 import { Course, Module, Lecture } from '../../src/entities';
-import { ExistingModuleError } from '../../src/entitie/errors/existing-module-error';
-import { UnexistingElementError } from '../../src/entitie/errors/unexisting-element-error'
+import { ExistingModuleError } from '../../src/entities/errors/existing-module-error';
+import { UnexistingElementError } from '../../src/entities/errors/unexisting-element-error';
+import { InvalidPositionError } from '../../src/entities/errors/invalid-position-error';
+
 
 describe('Course', () => {
   it('should be able to add modules to courses', () => {
@@ -98,7 +100,8 @@ describe('Course', () => {
     course.add(courseOverviewModule)
     course.add(gitModule)
 
-    course.move(fundamentalsModule, 10)
+    const error = course.move(fundamentalsModule, 10).value as Error
+    expect(error).toBeInstanceOf(InvalidPositionError)
 
     expect(course.position(fundamentalsModule).value).toBe(1)
     expect(course.position(courseOverviewModule).value).toBe(2)
@@ -123,7 +126,9 @@ describe('Course', () => {
     course.add(courseOverviewModule)
     course.add(gitModule)
 
-    course.move(courseOverviewModule, -1)
+    const error = course.move(courseOverviewModule, -1)
+    expect(error).toBeInstanceOf(InvalidPositionError)
+
 
     expect(course.position(fundamentalsModule).value).toBe(1)
     expect(course.position(courseOverviewModule).value).toBe(2)
