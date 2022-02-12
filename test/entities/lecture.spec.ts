@@ -28,7 +28,6 @@ describe('Lecture', () => {
     expect(error).toBeInstanceOf(UnexistingElementError)
   })
 
-
   it('should be able to add further links to lectures', () => {
     const lecture: Lecture = new Lecture('Branching', 'https://youtube.com/1234')
     const branchingLink: Material = new Link('Branching', 'http://page.com/branching.html')
@@ -41,11 +40,11 @@ describe('Lecture', () => {
     const branchingPdf: Material = new Pdf('Branching', 'https://storage/branching.pdf')
     lecture.add(branchingPdf)
     const error = lecture.add(branchingPdf).value as ExistingModuleError
-    expect(error.message).toEqual('Module alredy exist in course')
+    expect(error.message).toEqual('')
     expect(lecture.includes(branchingPdf)).toBeTruthy()
   })
 
-  it('should not be able to determine position of unexisting material', ()=>{
+  it('should not be able to determine position of unexisting material', () => {
     const lecture: Lecture = new Lecture('Branching', 'https://youtube.com/1234')
     const branchingPdf: Material = new Pdf('Branching', 'https://storage/branching.pdf')
     const error = lecture.position(branchingPdf).value as Error

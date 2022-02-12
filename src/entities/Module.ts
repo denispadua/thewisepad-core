@@ -1,6 +1,7 @@
 import { Either } from '@/shared/either'
 import { Container } from './container'
 import { ExistingPartError } from './errors/existing-part-error'
+import { InvalidPositionError } from './errors/invalid-position-error'
 import { UnexistingElementError } from './errors/unexisting-element-error'
 import { Lecture } from './lecture'
 import { Part } from './part'
@@ -24,15 +25,15 @@ export class Module implements Part {
     return this.lectures.includes(lecture)
   }
 
-  move (lecture: Lecture, position: number): Either<UnexistingElementError, void> {
+  move (lecture: Lecture, position: number): Either<UnexistingElementError | InvalidPositionError, void> {
     return this.lectures.move(lecture, position)
   }
 
-  position (lecture: Lecture): Either<UnexistingElementError,number> {
+  position (lecture: Lecture): Either<UnexistingElementError, number> {
     return this.lectures.position(lecture)
   }
 
-  remove (lecture: Lecture): Either<UnexistingElementError,void> {
+  remove (lecture: Lecture): Either<UnexistingElementError, void> {
     return this.lectures.remove(lecture)
   }
 

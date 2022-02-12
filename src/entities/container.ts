@@ -1,7 +1,7 @@
 import { Either, left, right } from '@/shared/either'
 import { ExistingPartError } from './errors/existing-part-error'
 import { UnexistingElementError } from './errors/unexisting-element-error'
-import { InvalidPositionError } from '../../src/entitie/errors/invalid-position-error';
+import { InvalidPositionError } from './errors/invalid-position-error'
 
 import { Part } from './part'
 
@@ -32,9 +32,9 @@ export class Container<T extends Part> {
     if (!this.includes(part)) return left(new UnexistingElementError())
     const from = this.position(part).value as number
     return right(moveInArray(this.parts, from - 1, to - 1))
-  } 
+  }
 
-  position (part: T): Either<UnexistingElementError,number> {
+  position (part: T): Either<UnexistingElementError, number> {
     const partInContainer = this.parts.find(p => p.equals(part))
     if (partInContainer === undefined) {
       return left(new UnexistingElementError())

@@ -4,8 +4,8 @@ import { Module } from './module'
 import { ExistingPartError } from './errors/existing-part-error'
 import { ExistingModuleError } from './errors/existing-module-error'
 import { UnexistingElementError } from './errors/unexisting-element-error'
-import { Part } from './part'
 import { Either, left } from '@/shared/either'
+import { InvalidPositionError } from './errors/invalid-position-error'
 
 export class Course {
   private readonly modules: Container<Module> = new Container<Module>()
@@ -37,11 +37,11 @@ export class Course {
     return this.modules.includes(module)
   }
 
-  move (module: Module, position: number): Either<UnexistingElementError, void> {
+  move (module: Module, position: number): Either<UnexistingElementError | InvalidPositionError, void> {
     return this.modules.move(module, position)
   }
 
-  position (module: Module): Either<UnexistingElementError,number> {
+  position (module: Module): Either<UnexistingElementError, number> {
     return this.modules.position(module)
   }
 

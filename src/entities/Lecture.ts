@@ -1,4 +1,4 @@
-import { Either } from '@/shared/either'
+import { Either } from '../shared/either'
 import { Container } from './container'
 import { ExistingPartError } from './errors/existing-part-error'
 import { UnexistingElementError } from './errors/unexisting-element-error'
@@ -23,14 +23,14 @@ export class Lecture implements Part {
     return this.materials.includes(material)
   }
 
-  remove (material: Material): Either<UnexistingElementError,void> {
+  remove (material: Material): Either<UnexistingElementError, void> {
     return this.materials.remove(material)
   }
 
-  position(material: Material): Either<UnexistingElementError, number>{
+  position (material: Material): Either<UnexistingElementError, number> {
     return this.materials.position(material)
   }
-  
+
   equals (other: Lecture): boolean {
     return this.description === other.description
   }
