@@ -4,7 +4,7 @@ import { Module } from './module'
 import { ExistingPartError } from './errors/existing-part-error'
 import { ExistingModuleError } from './errors/existing-module-error'
 import { Part } from './part'
-import { Either } from '@/shared/either'
+import { Either, left } from '@/shared/either'
 
 export class Course {
   private readonly modules: Container<Module> = new Container<Module>()
@@ -26,6 +26,10 @@ export class Course {
       return left(new ExistingModuleError())
     }
     return errorOrVoid
+  }
+
+  remove(module: Module): void{
+    this.modules.remove(module)
   }
 
   includes (module: Module): boolean {
