@@ -28,21 +28,21 @@ export class Container<T extends Part> {
 
   move (part: T, to: number): void {
     if (to > this.parts.length || to < 1) return
-    const from = this.position(part)
+    const from = this.position(part).value as number
     moveInArray(this.parts, from - 1, to - 1)
   }
 
-  position (part: T): number {
+  position (part: T): Either<UnexistingElementError,number> {
     const partInContainer = this.parts.find(p => p.equals(part))
     if (partInContainer === undefined) {
-      return undefined
+      return left(new UnexistingElementError())
     }
-    return this.parts.indexOf(partInContainer) + 1
+    return right(this.parts.indexOf(partInContainer) + 1)
   }
 
   remove (part: T): Either<UnexistingElementError, void> {
     if (!this.includes(part)) return left(new UnexistingElementError())
-    const positionInArray = this.position(part) - 1
+    const positionInArray = this.position(part).value as number - 1
     return right(this.splice(positionInArray, 1))
   }
 
