@@ -1,4 +1,5 @@
 import { ExistingModuleError } from '@/entities/errors/existing-module-error'
+import { UnexistingElementError } from '@/entities/errors/unexisting-element-error'
 import { Lecture } from '../../src/entities'
 import { Link } from '../../src/entities/link'
 import { Material } from '../../src/entities/material'
@@ -19,6 +20,14 @@ describe('Lecture', () => {
     lecture.remove(branchingPdf)
     expect(lecture.includes(branchingPdf)).toBeFalsy()
   })
+
+  it('should not be able to remove unexisting material', () => {
+    const lecture: Lecture = new Lecture('Branching', 'https://youtube.com/1234')
+    const branchingPdf: Material = new Pdf('Branching', 'https://storage/branching.pdf')
+    const error = lecture.remove(branchingPdf).value as Error
+    expect(error).toBeInstanceOf(UnexistingElementError)
+  })
+
 
   it('should be able to add further links to lectures', () => {
     const lecture: Lecture = new Lecture('Branching', 'https://youtube.com/1234')
