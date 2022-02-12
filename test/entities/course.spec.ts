@@ -132,4 +132,14 @@ describe('Course', () => {
     expect(gitModule.numberOfLectures).toEqual(3)
     expect(gitModule.position(branchingLecture)).toEqual(2)
   })
+
+  it('should be able to remove modules', ()=>{
+    const course = new Course('azure-devops', 'Continuous Delivery and DevOps with Azure DevOps: Source Control with Git')
+    const fundamentalsModule = new Module('Fundamentals')
+    const branchingLecture: Lecture = new Lecture('Branching', 'https://youtube.com/1234')
+    fundamentalsModule.add(branchingLecture)
+    course.add(fundamentalsModule)
+    course.remove(fundamentalsModule)
+    expect(course.numberOfModules).toEqual(0)
+  })
 })
