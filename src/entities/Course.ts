@@ -3,7 +3,7 @@ import { Container } from './container'
 import { Module } from './module'
 import { ExistingPartError } from './errors/existing-part-error'
 import { ExistingModuleError } from './errors/existing-module-error'
-import {UnexistingElementError} from './errors/unexisting-element-error'
+import { UnexistingElementError } from './errors/unexisting-element-error'
 import { Part } from './part'
 import { Either, left } from '@/shared/either'
 
@@ -23,13 +23,13 @@ export class Course {
 
   add (module: Module): Either<ExistingPartError, void> {
     const errorOrVoid = this.modules.add(module)
-    if(errorOrVoid.isLeft()){
+    if (errorOrVoid.isLeft()) {
       return left(new ExistingModuleError())
     }
     return errorOrVoid
   }
 
-  remove(module: Module): Either<UnexistingElementError, void>{
+  remove (module: Module): Either<UnexistingElementError, void> {
     return this.modules.remove(module)
   }
 

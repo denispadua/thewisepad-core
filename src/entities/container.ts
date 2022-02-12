@@ -1,9 +1,8 @@
 import { Either, left, right } from '@/shared/either'
 import { ExistingPartError } from './errors/existing-part-error'
-import {UnexistingElementError} from './errors/unexisting-element-error'
+import { UnexistingElementError } from './errors/unexisting-element-error'
 
 import { Part } from './part'
-
 
 export class Container<T extends Part> {
   private readonly parts: Array<T> = []
@@ -13,16 +12,16 @@ export class Container<T extends Part> {
   }
 
   add (part: T): Either<ExistingPartError, void> {
-    if (!this.includes(part)){
+    if (!this.includes(part)) {
       return right(this.push(part))
     }
     return left(new ExistingPartError())
   }
 
-
-  private push(part: T): void{
+  private push (part: T): void {
     this.parts.push(part)
   }
+
   includes (part: T): boolean {
     return this.parts.find(p => p.equals(part) === true) !== undefined
   }
@@ -47,7 +46,7 @@ export class Container<T extends Part> {
     return right(this.splice(positionInArray, 1))
   }
 
-  private splice(position: number, numberOfElements: number): void{
+  private splice (position: number, numberOfElements: number): void {
     this.parts.splice(position, numberOfElements)
   }
 }
