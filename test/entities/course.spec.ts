@@ -1,5 +1,6 @@
 import { Course, Module, Lecture } from '../../src/entities';
 import { ExistingModuleError } from '../../src/entitie/errors/existing-module-error';
+import { UnexistingElementError } from '../../src/entitie/errors/unexisting-element-error'
 
 describe('Course', () => {
   it('should be able to add modules to courses', () => {
@@ -139,7 +140,16 @@ describe('Course', () => {
     const branchingLecture: Lecture = new Lecture('Branching', 'https://youtube.com/1234')
     fundamentalsModule.add(branchingLecture)
     course.add(fundamentalsModule)
-    course.remove(fundamentalsModule)
+    const ok = course.remove(fundamentalsModule).value as void
     expect(course.numberOfModules).toEqual(0)
+    expect(ok).toBeUndefined()
+  })
+
+  it('should not be able to remove unexisting modules', ()=>{
+    const course = new Course('azure-devops', 'Continuous Delivery and DevOps with Azure DevOps: Source Control with Git')
+    const fundamentalsModule = new Module('Fundamentals')
+    const error = course.remove(fundamentalsModule).value as Error
+    expect(error).toBeInstanceOf(UnexistingElementError)
+    expect(error.message).toEqual('Element does not exist')
   })
 })
